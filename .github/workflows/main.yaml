@@ -17,7 +17,7 @@ jobs:
           chmod +x ./library/*.sh
 
       - name: Validate shell scripts with ShellCheck
-        uses: ludeeus/action-shellcheck@v2
+        uses: ludeeus/action-shellcheck@v2.0.0
         with:
           folder: library
 
