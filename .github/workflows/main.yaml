@@ -1,0 +1,36 @@
+name: Run Shell Scripts
+
+on:
+  pull_request:
+
+jobs:
+  run-scripts:
+    name: Run Shell Scripts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up permissions for scripts
+        run: |
+          chmod +x ./library/*.sh
+
+      - name: Validate shell scripts with ShellCheck
+        uses: ludeeus/action-shellcheck@v2.0.0
+        with:
+          folder: library
+
+      - name: Run shell scripts
+        run: |
+          for script in ./library/*.sh; do
+            echo "Running $script"
+            bash "$script"
+          done
+
+      - name: Collect and upload results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: script-outputs
+          path: outputs/
