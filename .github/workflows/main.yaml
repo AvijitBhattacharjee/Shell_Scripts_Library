@@ -1,9 +1,6 @@
 name: Run Shell Scripts
 
 on:
-  push:
-    - main
-    - master
   pull_request:
 
 jobs:
